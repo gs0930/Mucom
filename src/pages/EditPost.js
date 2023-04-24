@@ -7,74 +7,74 @@ import React, { useState, useEffect } from 'react';
 
 
 
-const EditPost = ({data}) => {
-    
+const EditPost = ({ data }) => {
 
-    // const {id} = useParams();
-    
-    // const post = data.filter(item => item.id === id)[0];
-    // const { title, author, description } = post;
-    // // const [title, setTitle] = useState(post.title);
-    // // const [author, setAuthor] = useState(post.author);
-    // // const [description, setDescription] = useState(post.description);
-    // const updatePost = async (event) => {
-    //     event.preventDefault();
-    
-    //     await supabase
-    //     .from('Posts')
-    //     .update({ title: post.title, author: post.author,  description: post.description})
-    //     .eq('id', id);
-    
-    //     window.location = "/";
-    // }
-    const { id } = useParams();
-    const [post, setPost] = useState({});
-  
-    useEffect(() => {
-      async function fetchPost() {
-        const { data: post, error } = await supabase
-          .from('Crewmates')
-          .select('*')
-          .eq('id', id)
-          .single();
-  
-        if (error) {
-          console.error('Error fetching post:', error);
-        } else {
-          setPost(post);
-        }
+
+  // const {id} = useParams();
+
+  // const post = data.filter(item => item.id === id)[0];
+  // const { title, author, description } = post;
+  // // const [title, setTitle] = useState(post.title);
+  // // const [author, setAuthor] = useState(post.author);
+  // // const [description, setDescription] = useState(post.description);
+  // const updatePost = async (event) => {
+  //     event.preventDefault();
+
+  //     await supabase
+  //     .from('Posts')
+  //     .update({ title: post.title, author: post.author,  description: post.description})
+  //     .eq('id', id);
+
+  //     window.location = "/";
+  // }
+  const { id } = useParams();
+  const [post, setPost] = useState({});
+
+  useEffect(() => {
+    async function fetchPost() {
+      const { data: post, error } = await supabase
+        .from('Mucom')
+        .select('*')
+        .eq('id', id)
+        .single();
+
+      if (error) {
+        console.error('Error fetching post:', error);
+      } else {
+        setPost(post);
       }
-  
-      fetchPost();
-    }, [id]);
-
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-    
-        const { name, major, grade } = event.target.elements;
-    
-        await supabase
-          .from('Crewmates')
-          .update({ name: name.value, major: major.value, grade: grade.value })
-          .eq('id', id);
-    
-        window.location = '/';
-      };
-
-      const deletePost = async (event) => {
-        event.preventDefault();
-    
-        await supabase
-        .from('Crewmates')
-        .delete()
-        .eq('id', id); 
-    
-        window.location = "http://localhost:3001/";
     }
 
-    return (
-        <div>
-            {/* <form onSubmit={handleSubmit}>
+    fetchPost();
+  }, [id]);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const { title, content, image } = event.target.elements;
+
+    await supabase
+      .from('Mucom')
+      .update({ title: title.value, content: content.value, image: image.value })
+      .eq('id', id);
+
+    window.location = '/';
+  };
+
+  const deletePost = async (event) => {
+    event.preventDefault();
+
+    await supabase
+      .from('Mucom')
+      .delete()
+      .eq('id', id);
+
+    window.location = '/';
+  }
+
+  return (
+    <div>
+      {/* <form onSubmit={handleSubmit}>
                 <label htmlFor="title">Title</label> <br />
                 <input type="text" id="title" name="title" value={post.title} /><br />
                 <br/>
@@ -90,28 +90,24 @@ const EditPost = ({data}) => {
                 <input type="submit" value="Submit" />
                 <button className="deleteButton">Delete</button>
             </form> */}
-             <form onSubmit={handleSubmit}>
-        <label htmlFor="name">Name</label>
-        <input type="text" id="name" name="name" defaultValue={post.name} required />
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="title">Title</label>
+        <input type="text" id="title" name="title" defaultValue={post.title} required />
 
-        <label htmlFor="major">Major</label>
-        <input type="text" id="major" name="major" defaultValue={post.major} required />
+        <label htmlFor="content">Content (Optional)</label>
+        <input type="text" id="content" name="content" defaultValue={post.content} />
 
-        <label htmlFor="grade">Choose a grade: </label>
-                <select id="grade" name="grade" defaultValue={post.grade} required >
-                    <option value="Freshman">Freshman</option>
-                    <option value="Sophomore">Sophomore</option>
-                    <option value="Junior">Junior</option>
-                    <option value="Senior">Senior</option>
-                </select>
-         
+        <label htmlFor="image">Image (Optional)</label>
+        <input type="text" id="image" name="image" defaultValue={post.image} />
+
+
 
         <button type="submit">Update Post</button>
         <button className="deleteButton" onClick={deletePost}>Delete</button>
 
       </form>
-        </div>
-    )
+    </div>
+  )
 }
 
 export default EditPost
