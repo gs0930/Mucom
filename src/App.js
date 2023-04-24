@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom'
 
 
 const App = () => {
-  
+
   const descr = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.'
   const [posts, setPosts] = useState([]);
 
@@ -36,7 +36,7 @@ const App = () => {
   // ]
   const fetchPosts = async () => {
     const { data } = await supabase
-      .from('Crewmates')
+      .from('Mucom')
       .select()
       .order('created_at', { ascending: true });
 
@@ -52,35 +52,41 @@ const App = () => {
   let element = useRoutes([
     {
       path: "/",
-      element:<ReadPosts data={posts}/>
+      element: <ReadPosts data={posts} />
     },
     {
-      path:"/edit/:id",
+      path: "/edit/:id",
       element: <EditPost data={posts} />
     },
     {
-      path:"/display/:id",
+      path: "/display/:id",
       element: <DisplayPost data={posts} />
 
     },
     {
-      path:"/new",
+      path: "/new",
       element: <CreatePost />
     }
   ]);
 
-  return ( 
+  return (
 
     <div className="App">
 
       <div className="header">
-        <h1>Studymates</h1>
+        <a className="home-link" key="home-button" >
+          <Link to="/" style={{ color: 'white' }}>Home</Link>
+        </a>
+
+        <h1>🎵 Mucom 🎵</h1>
+        <h5>Music Community for Everyone</h5>
         {/* <Link to="/"><button className="headerBtn"> Explore Challenges 🔍  </button></Link> */}
-        <Link to="/new"><button className="headerBtn"> Create a CrewMate  </button></Link>
-      {/* <CreatePost /> */}
-      <ReadPosts posts={posts} />
+        <Link to="/new"><button className="headerBtn"> Create a post  </button></Link>
+        {/* <CreatePost /> */}
+        {/* <ReadPosts posts={posts} /> */}
+
       </div>
-        {element}
+      {element}
     </div>
 
   );

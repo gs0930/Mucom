@@ -5,7 +5,7 @@
   font-size: calc(10px + 2vmin);
   color: white;
   justify-content: center;
-  background-color: rgba(0, 0, 0, 0.962);
+  background-color: rgba(62, 9, 252, 0.962);
   padding:20px;
   display: flex;
   flex-direction: row;
@@ -23,6 +23,8 @@
 .headerBtn {
   margin-bottom: 50px;
   margin-right: 10px;
+  background-color: antiquewhite;
+  color: darkblue;
 }
 
 .ReadPosts {
@@ -39,7 +41,7 @@ button {
   font-size: 15px;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: #7fe890;
   color:white;
   cursor: pointer;
   transition: border-color 0.25s;
